@@ -20,7 +20,7 @@ import java.io.Serializable;
 @Data
 @Builder
 @Accessors(chain = true)
-@TableName(value = "user")
+@TableName(value = "tb_user")
 public class User implements Serializable {
     @TableId(value = "id", type = IdType.ID_WORKER)
     private Long id;
