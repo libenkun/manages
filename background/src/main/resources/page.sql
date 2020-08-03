@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2020-07-31 17:44:02
+Date: 2020-08-03 17:30:35
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -21,7 +21,7 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `tb_menu`;
 CREATE TABLE `tb_menu` (
   `id` bigint(20) NOT NULL,
-  `menuName` varchar(255) DEFAULT NULL,
+  `menu_name` varchar(255) DEFAULT NULL,
   `path` varchar(255) DEFAULT NULL,
   `permission_id` bigint(20) DEFAULT NULL,
   `picture` varchar(255) DEFAULT NULL COMMENT '图片',
@@ -34,6 +34,25 @@ CREATE TABLE `tb_menu` (
 -- ----------------------------
 -- Records of tb_menu
 -- ----------------------------
+INSERT INTO `tb_menu` VALUES ('1290188164052922369', '用户管理', 'path,', null, 'ss', '2020-08-03 15:30:04', '2020-08-03 15:30:04', '1');
+
+-- ----------------------------
+-- Table structure for tb_menu_permission
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_menu_permission`;
+CREATE TABLE `tb_menu_permission` (
+  `id` bigint(20) NOT NULL,
+  `permission_id` bigint(20) DEFAULT NULL,
+  `menu_id` bigint(20) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of tb_menu_permission
+-- ----------------------------
+INSERT INTO `tb_menu_permission` VALUES ('1290213373900308482', '1290212034193473537', '1290188164052922369', '2020-08-03 17:10:14', '2020-08-03 17:10:14');
 
 -- ----------------------------
 -- Table structure for tb_psermission
@@ -52,6 +71,7 @@ CREATE TABLE `tb_psermission` (
 -- ----------------------------
 -- Records of tb_psermission
 -- ----------------------------
+INSERT INTO `tb_psermission` VALUES ('1290212034193473537', '0', '管理员权限', '1', '2020-08-03 17:04:55', '2020-08-03 17:04:55');
 
 -- ----------------------------
 -- Table structure for tb_role
@@ -59,7 +79,7 @@ CREATE TABLE `tb_psermission` (
 DROP TABLE IF EXISTS `tb_role`;
 CREATE TABLE `tb_role` (
   `id` bigint(20) NOT NULL,
-  `roleName` varchar(255) DEFAULT NULL,
+  `role_name` varchar(255) DEFAULT NULL,
   `picture` varchar(255) DEFAULT NULL COMMENT '图片',
   `path` varchar(255) DEFAULT NULL COMMENT '地址',
   `create_time` datetime DEFAULT NULL,
@@ -71,6 +91,7 @@ CREATE TABLE `tb_role` (
 -- ----------------------------
 -- Records of tb_role
 -- ----------------------------
+INSERT INTO `tb_role` VALUES ('1290198153911971842', '管理员', 'www.abc.com', 'www.abc.com', '2020-08-03 16:09:45', '2020-08-03 16:09:45', '1');
 
 -- ----------------------------
 -- Table structure for tb_role_permission
@@ -88,6 +109,7 @@ CREATE TABLE `tb_role_permission` (
 -- ----------------------------
 -- Records of tb_role_permission
 -- ----------------------------
+INSERT INTO `tb_role_permission` VALUES ('1290213894077890561', '1290198153911971842', '1290212034193473537', '2020-08-03 17:12:18', '2020-08-03 17:12:18');
 
 -- ----------------------------
 -- Table structure for tb_user

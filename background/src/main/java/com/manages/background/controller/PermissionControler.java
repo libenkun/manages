@@ -17,7 +17,7 @@ public class PermissionControler {
     @Autowired
     PermissionServiceImpl permissionService;
 
-    @PostMapping
+    @PostMapping("add")
     public ResultJson add(Permission permission){
         permissionService.save(permission);
         return ResultJson.returnOK(permission);
