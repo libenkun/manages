@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@MapperScan("cn.iweixiao.library.dao")
+@MapperScan("com.manages.background.dao")
 public class MybatisPlusConfig {
 
     @Bean

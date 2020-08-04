@@ -6,21 +6,38 @@ package com.manages.background.controller;
  **/
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.manages.background.pojo.Menu;
+import com.manages.background.pojo.Permission;
+import com.manages.background.pojo.Role;
 import com.manages.background.pojo.User;
+import com.manages.background.service.impl.MenuServiceImpl;
+import com.manages.background.service.impl.PermissionServiceImpl;
+import com.manages.background.service.impl.RoleServiceImpl;
 import com.manages.background.service.impl.UserServiceImpl;
 import com.manages.background.utils.ResultJson;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-import java.util.Objects;
+import javax.annotation.Resource;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("user")
+@Slf4j
 public class UserControler {
 
     @Autowired
     UserServiceImpl userService;
+    @Resource
+    RoleServiceImpl roleService;
+
+    @Autowired
+    PermissionServiceImpl permissionService;
+
+    @Autowired
+    MenuServiceImpl menuService;
 
 
     @PostMapping("login")
@@ -29,12 +46,28 @@ public class UserControler {
         queryWrapper.eq(User::getUsername,user.getUsername())
                     .eq(User::getPassword,user.getPassword());
 
+        //1查询用户信息
        User loginUser = userService.getOne(queryWrapper);
-        if (Objects.nonNull(loginUser)){
-            return ResultJson.returnOK(loginUser);
-        }else {
-            return ResultJson.returnError("不是系统用户！");
-        }
+
+       //2通过用户id，查询出角色信息
+       List<Role> roleList = roleService.list(loginUser.getId());
+       if (!roleList.isEmpty()){
+           Set<Long> ids = roleList.parallelStream().map(Role::getId).collect(Collectors.toSet());
+           //3通过角色信息，拿到权限
+           List<Permission> permissionList = permissionService.PermissionByRoleId(ids);
+           Set<Long> permissionIds = permissionList.stream().map(Permission::getId).collect(Collectors.toSet());
+           //4通过权限信息，拿到菜单信息
+            List<Menu> menuList = menuService.menuList(permissionIds);
+            if (!menuList.isEmpty()){
+                loginUser.setMenus(menuList);
+            }else {
+                loginUser.setMenus(new ArrayList<>());
+            }
+       }else {
+           return null;
+       }
+
+       return ResultJson.returnOK(loginUser);
     }
 
     @PostMapping("add")
@@ -66,4 +99,5 @@ public class UserControler {
     public ResultJson list(){
        return ResultJson.returnOK(userService.list());
     }
+
 }
