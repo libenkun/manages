@@ -16,6 +16,7 @@ import com.manages.background.service.impl.RoleServiceImpl;
 import com.manages.background.service.impl.UserServiceImpl;
 import com.manages.background.utils.ResultJson;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,63 +42,65 @@ public class UserControler {
 
 
     @PostMapping("login")
-    public ResultJson login(User user){
+    public ResultJson login(@RequestBody User user) {
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(User::getUsername,user.getUsername())
-                    .eq(User::getPassword,user.getPassword());
+        queryWrapper.eq(User::getUsername, user.getUsername())
+                .eq(User::getPassword, user.getPassword());
 
         //1查询用户信息
-       User loginUser = userService.getOne(queryWrapper);
-
-       //2通过用户id，查询出角色信息
-       List<Role> roleList = roleService.list(loginUser.getId());
-       if (!roleList.isEmpty()){
-           Set<Long> ids = roleList.parallelStream().map(Role::getId).collect(Collectors.toSet());
-           //3通过角色信息，拿到权限
-           List<Permission> permissionList = permissionService.PermissionByRoleId(ids);
-           Set<Long> permissionIds = permissionList.stream().map(Permission::getId).collect(Collectors.toSet());
-           //4通过权限信息，拿到菜单信息
+        User loginUser = userService.getOne(queryWrapper);
+        if (Objects.isNull(loginUser)) {
+            return ResultJson.returnError("用户为空！");
+        }
+        //2通过用户id，查询出角色信息
+        List<Role> roleList = roleService.list(loginUser.getId());
+        if (!roleList.isEmpty()) {
+            Set<Long> ids = roleList.parallelStream().map(Role::getId).collect(Collectors.toSet());
+            //3通过角色信息，拿到权限
+            List<Permission> permissionList = permissionService.PermissionByRoleId(ids);
+            Set<Long> permissionIds = permissionList.stream().map(Permission::getId).collect(Collectors.toSet());
+            //4通过权限信息，拿到菜单信息
             List<Menu> menuList = menuService.menuList(permissionIds);
-            if (!menuList.isEmpty()){
+            if (!menuList.isEmpty()) {
                 loginUser.setMenus(menuList);
-            }else {
+            } else {
                 loginUser.setMenus(new ArrayList<>());
             }
-       }else {
-           return null;
-       }
+        } else {
+            return null;
+        }
 
-       return ResultJson.returnOK(loginUser);
+        return ResultJson.returnOK(loginUser);
     }
 
     @PostMapping("add")
-    public ResultJson add(User user){
+    public ResultJson add(User user) {
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(User::getUsername,user.getUsername());
+        queryWrapper.eq(User::getUsername, user.getUsername());
         List<User> list = userService.list(queryWrapper);
-        if (!list.isEmpty()){
+        if (!list.isEmpty()) {
             return ResultJson.returnError("用户名重复！");
-        }else {
+        } else {
             userService.save(user);
             return ResultJson.returnOK(user);
         }
     }
 
     @PutMapping("update")
-    public ResultJson update(User user){
+    public ResultJson update(User user) {
         userService.updateById(user);
         return ResultJson.returnOK("修改成功！");
     }
 
     @DeleteMapping("remover/{id}")
-    public ResultJson remover(@PathVariable("id") Long id){
+    public ResultJson remover(@PathVariable("id") Long id) {
         userService.removeById(id);
         return ResultJson.returnOK("删除成功！");
     }
 
     @GetMapping("list")
-    public ResultJson list(){
-       return ResultJson.returnOK(userService.list());
+    public ResultJson list() {
+        return ResultJson.returnOK(userService.list());
     }
 
 }
