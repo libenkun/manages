@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2020-08-03 17:30:35
+Date: 2020-08-07 17:23:46
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -28,13 +28,15 @@ CREATE TABLE `tb_menu` (
   `create_time` datetime DEFAULT NULL,
   `update_time` datetime DEFAULT NULL,
   `states` tinyint(2) DEFAULT NULL,
+  `pid` bigint(20) DEFAULT '0' COMMENT '父id',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tb_menu
 -- ----------------------------
-INSERT INTO `tb_menu` VALUES ('1290188164052922369', '用户管理', 'path,', null, 'ss', '2020-08-03 15:30:04', '2020-08-03 15:30:04', '1');
+INSERT INTO `tb_menu` VALUES ('1290188164052922369', '用户管理', 'path,', null, 'ss', '2020-08-03 15:30:04', '2020-08-03 15:30:04', '1', '0');
+INSERT INTO `tb_menu` VALUES ('1291303975261945858', '添加用户', '123', null, 'eee', '2020-08-06 17:23:54', '2020-08-06 17:23:54', '1', '1290188164052922369');
 
 -- ----------------------------
 -- Table structure for tb_menu_permission
@@ -125,7 +127,7 @@ CREATE TABLE `tb_user` (
 -- ----------------------------
 -- Records of tb_user
 -- ----------------------------
-INSERT INTO `tb_user` VALUES ('1', 'ss', 'fdf');
+INSERT INTO `tb_user` VALUES ('1', 'sss', 'fdfs');
 INSERT INTO `tb_user` VALUES ('1289102228988719105', 'lbk', '123456');
 
 -- ----------------------------
@@ -144,3 +146,4 @@ CREATE TABLE `tb_user_role` (
 -- ----------------------------
 -- Records of tb_user_role
 -- ----------------------------
+INSERT INTO `tb_user_role` VALUES ('1290544423876747265', '1289102228988719105', '1290198153911971842', '2020-08-04 15:05:43', '2020-08-04 15:05:43');
