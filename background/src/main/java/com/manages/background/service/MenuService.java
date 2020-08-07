@@ -12,4 +12,5 @@ import java.util.Set;
  **/
 public interface MenuService extends IService<Menu> {
     List<Menu> menuList(Set<Long> set);
+    List<Menu> menus(Long pid);
 }

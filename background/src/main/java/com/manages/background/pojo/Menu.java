@@ -9,6 +9,7 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author lbk
@@ -23,6 +24,7 @@ import java.time.LocalDateTime;
 public class Menu implements Serializable {
     @TableId(value = "id", type = IdType.ID_WORKER)
     private Long id;
+    private Long pid;
     private String menuName;
     private String path;
     private Long permissionId;
@@ -32,5 +34,8 @@ public class Menu implements Serializable {
     private LocalDateTime createTime;
     @TableField(fill = FieldFill.INSERT, update = "now()")
     private LocalDateTime updateTime;
+
+    @TableField(exist = false)
+    List<Menu> menusChild;
 
 }

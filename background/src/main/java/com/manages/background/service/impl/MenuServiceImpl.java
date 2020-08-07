@@ -1,5 +1,6 @@
 package com.manages.background.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.manages.background.dao.MenuMapper;
 import com.manages.background.pojo.Menu;
@@ -23,6 +24,22 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
     @Override
     public List<Menu> menuList(Set<Long> set) {
         List <Menu> menuList = menuMapper.MenuListByPermission(set);
+        if (!menuList.isEmpty()){
+            menuList.stream().forEach(item->{
+                List<Menu> childMenu = this.menus(item.getId());
+                if (!childMenu.isEmpty()){
+                    item.setMenusChild(childMenu);
+                }
+            });
+        }
         return menuList;
+    }
+
+    @Override
+    public List<Menu> menus(Long pid) {
+        LambdaQueryWrapper<Menu> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Menu::getPid,pid);
+        List<Menu> list = this.list(queryWrapper);
+        return list;
     }
 }

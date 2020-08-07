@@ -2,6 +2,7 @@ package com.manages.background.exception;
 
 import com.manages.background.utils.ResultJson;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @Author kzh
@@ -9,6 +10,7 @@ import lombok.Data;
  * @Date 19-5-16 下午5:24
  */
 @Data
+@EqualsAndHashCode(callSuper = false)
 public class ResultJsonException extends RuntimeException {
     private ResultJson resultJson;
 

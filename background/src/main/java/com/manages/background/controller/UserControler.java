@@ -66,10 +66,7 @@ public class UserControler {
             } else {
                 loginUser.setMenus(new ArrayList<>());
             }
-        } else {
-            return null;
         }
-
         return ResultJson.returnOK(loginUser);
     }
 
