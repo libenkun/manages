@@ -35,7 +35,7 @@ public class MenuControler {
     }
 
     @GetMapping("list")
-    public ResultJson list(Menu menu){
+    public ResultJson list(){
         return ResultJson.returnOK(menuService.list());
     }
 }

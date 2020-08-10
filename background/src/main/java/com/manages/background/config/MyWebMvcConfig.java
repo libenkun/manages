@@ -3,6 +3,8 @@ package com.manages.background.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import com.manages.background.interceptor.TokenWebRequestInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -16,6 +18,8 @@ import java.util.List;
 @Configuration
 public class MyWebMvcConfig implements WebMvcConfigurer {
 
+    @Autowired
+    TokenWebRequestInterceptor tokenWebRequestInterceptor;
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
@@ -54,6 +58,6 @@ public class MyWebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        return;
+        registry.addWebRequestInterceptor(tokenWebRequestInterceptor);
     }
 }
