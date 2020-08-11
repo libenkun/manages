@@ -10,10 +10,27 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2020-08-07 17:23:46
+Date: 2020-08-11 17:37:36
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for tb_category
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_category`;
+CREATE TABLE `tb_category` (
+  `id` bigint(20) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of tb_category
+-- ----------------------------
+INSERT INTO `tb_category` VALUES ('1292748966458884097', '酒类', '2020-08-10 17:05:46', '2020-08-10 17:05:46');
 
 -- ----------------------------
 -- Table structure for tb_menu
@@ -36,7 +53,17 @@ CREATE TABLE `tb_menu` (
 -- Records of tb_menu
 -- ----------------------------
 INSERT INTO `tb_menu` VALUES ('1290188164052922369', '用户管理', 'path,', null, 'ss', '2020-08-03 15:30:04', '2020-08-03 15:30:04', '1', '0');
-INSERT INTO `tb_menu` VALUES ('1291303975261945858', '添加用户', '123', null, 'eee', '2020-08-06 17:23:54', '2020-08-06 17:23:54', '1', '1290188164052922369');
+INSERT INTO `tb_menu` VALUES ('1291303975261945858', '用户列表', 'user', null, 'eee', '2020-08-06 17:23:54', '2020-08-06 17:23:54', '1', '1290188164052922369');
+INSERT INTO `tb_menu` VALUES ('1292725922017406978', '权限管理', 'www.baidu.com', null, null, '2020-08-10 15:34:12', '2020-08-10 15:34:12', '1', '0');
+INSERT INTO `tb_menu` VALUES ('1292726014279512066', '角色列表', 'roles', null, null, '2020-08-10 15:34:34', '2020-08-10 15:34:34', '1', '1292725922017406978');
+INSERT INTO `tb_menu` VALUES ('1292726137977925633', '商品管理', 'commodity', null, null, '2020-08-10 15:35:04', '2020-08-10 15:35:04', '1', '0');
+INSERT INTO `tb_menu` VALUES ('1292726192201887746', '商品列表', 'commodityList', null, null, '2020-08-10 15:35:17', '2020-08-10 15:35:17', '1', '1292726137977925633');
+INSERT INTO `tb_menu` VALUES ('1292726267183460353', '订单管理', 'www.baidu.com', null, null, '2020-08-10 15:35:34', '2020-08-10 15:35:34', '1', '0');
+INSERT INTO `tb_menu` VALUES ('1292726307331338241', '添加', 'www.baidu.com', null, null, '2020-08-10 15:35:44', '2020-08-10 15:35:44', '1', '1292726267183460353');
+INSERT INTO `tb_menu` VALUES ('1292726380085735426', '数据统计', 'www.baidu.com', null, null, '2020-08-10 15:36:01', '2020-08-10 15:36:01', '1', '0');
+INSERT INTO `tb_menu` VALUES ('1292731715781488641', '权限列表', 'www.baidu.com', null, null, '2020-08-10 15:57:13', '2020-08-10 15:57:13', '1', '1292725922017406978');
+INSERT INTO `tb_menu` VALUES ('1292733113608794113', '分类参数', 'www.baidu.com', null, null, '2020-08-10 16:02:47', '2020-08-10 16:02:47', '1', '1292726137977925633');
+INSERT INTO `tb_menu` VALUES ('1292733174052909058', '商品分类', 'www.baidu.com', null, null, '2020-08-10 16:03:01', '2020-08-10 16:03:01', '1', '1292726137977925633');
 
 -- ----------------------------
 -- Table structure for tb_menu_permission
@@ -55,6 +82,10 @@ CREATE TABLE `tb_menu_permission` (
 -- Records of tb_menu_permission
 -- ----------------------------
 INSERT INTO `tb_menu_permission` VALUES ('1290213373900308482', '1290212034193473537', '1290188164052922369', '2020-08-03 17:10:14', '2020-08-03 17:10:14');
+INSERT INTO `tb_menu_permission` VALUES ('1292727300370558977', '1290212034193473537', '1292725922017406978', '2020-08-10 15:39:41', '2020-08-10 15:39:41');
+INSERT INTO `tb_menu_permission` VALUES ('1292727431308341249', '1290212034193473537', '1292726137977925633', '2020-08-10 15:40:12', '2020-08-10 15:40:12');
+INSERT INTO `tb_menu_permission` VALUES ('1292727476749430785', '1290212034193473537', '1292726267183460353', '2020-08-10 15:40:23', '2020-08-10 15:40:23');
+INSERT INTO `tb_menu_permission` VALUES ('1292727510316445697', '1290212034193473537', '1292726380085735426', '2020-08-10 15:40:31', '2020-08-10 15:40:31');
 
 -- ----------------------------
 -- Table structure for tb_psermission
@@ -121,14 +152,19 @@ CREATE TABLE `tb_user` (
   `id` bigint(20) NOT NULL,
   `username` varchar(255) DEFAULT NULL,
   `password` varchar(255) DEFAULT NULL,
+  `states` tinyint(2) DEFAULT '0',
+  `email` varchar(20) DEFAULT NULL,
+  `phone` varchar(30) DEFAULT NULL,
+  `create_time` datetime DEFAULT NULL,
+  `update_time` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tb_user
 -- ----------------------------
-INSERT INTO `tb_user` VALUES ('1', 'sss', 'fdfs');
-INSERT INTO `tb_user` VALUES ('1289102228988719105', 'lbk', '123456');
+INSERT INTO `tb_user` VALUES ('1', 'sss', 'fdfs', '1', '1457722982@qq.com', '13529071895', '2020-08-10 15:22:10', null);
+INSERT INTO `tb_user` VALUES ('1289102228988719105', 'lbk', '123456', '0', '', '19987831285', '2020-08-07 15:22:17', null);
 
 -- ----------------------------
 -- Table structure for tb_user_role
