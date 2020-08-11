@@ -1,9 +1,6 @@
 package com.manages.background.pojo;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -28,6 +26,13 @@ public class User implements Serializable {
     private Long id;
     private String username;
     private String password;
+    private Boolean states;
+    private String email;
+    private String phone;
+    @TableField(fill = FieldFill.INSERT)
+    private LocalDateTime createTime;
+    @TableField(fill = FieldFill.INSERT, update = "now()")
+    private LocalDateTime updateTime;
 
     @TableField(exist = false)
     List<Menu> menus;

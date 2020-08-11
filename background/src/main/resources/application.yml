@@ -4,13 +4,13 @@ spring:
     active: dev
 
 ---
-#�˿�����
+#端口配置
 server:
   port: 8089
 
 spring:
   profiles: dev
-  #����Դ����
+  #数据源配置
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -18,32 +18,32 @@ spring:
     username: root
     password: root
     druid:
-      #����Ծ��
+      #最大活跃数
       maxActive: 20
-      #��ʼ������
+      #初始化数量
       initialSize: 1
-      #������ӵȴ���ʱʱ��
+      #最大连接等待超时时间
       maxWait: 60000
-      #��PSCache������ָ��ÿ������PSCache�Ĵ�С
+      #打开PSCache，并且指定每个连接PSCache的大小
       poolPreparedStatements: true
       maxPoolPreparedStatementPerConnectionSize: 20
-      #ͨ��connectionProperties��������mergeSql���ܣ���SQL��¼
+      #通过connectionProperties属性来打开mergeSql功能；慢SQL记录
       #connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
       minIdle: 1
-      #ÿ30������һ�ο������ӻ�����
+      #每30秒运行一次空闲连接回收器
       timeBetweenEvictionRunsMillis: 60000
-      #���е����ӿ���30���Ӻ󱻻���,Ĭ��ֵ����30���ӡ�
+      #池中的连接空闲30分钟后被回收,默认值就是30分钟。
       minEvictableIdleTimeMillis: 300000
-      # ��֤�����Ƿ���ã�ʹ�õ�SQL���
+      # 验证连接是否可用，使用的SQL语句
       validationQuery: select 1
-      #ָ�������Ƿ񱻿������ӻ�����(�����)���м���.������ʧ��,�����ӽ����ӳ���ȥ��.
+      #指明连接是否被空闲连接回收器(如果有)进行检验.如果检测失败,则连接将被从池中去除.
       testWhileIdle: true
-      # �������ʱ��Ҫ���ԣ������Ӱ������
+      # 借出连接时不要测试，否则很影响性能
       testOnBorrow: false
       testOnReturn: false
 
 
-  #jackson����
+  #jackson配置
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
@@ -58,34 +58,34 @@ mybatis-plus:
   #config-location: classpath:mybatis-config.xml
   global-config:
     db-config:
-      #��������  0:"���ݿ�ID����", 1:"�û�����ID",2:"ȫ��ΨһID (��������ΨһID)", 3:"ȫ��ΨһID UUID";
+      #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
       id-type: ID_WORKER
-      #�ֶβ��� 0:"�����ж�",1:"�� NULL �ж�"),2:"�ǿ��ж�"
+      #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
       field-strategy: 1
-      #���ݿ��д�»���ת�� true:���ݿ��д false :��ת��
+      #数据库大写下划线转换 true:数据库大写 false :不转换
       capital-mode: false
-      #���нӿ�ʵ��������
+      #序列接口实现类配置
       #key-generator: com.baomidou.springboot.xxx
-      #�߼�ɾ�����ã�����3�����ã�
+      #逻辑删除配置（下面3个配置）
       logic-delete-value: 0
       logic-not-delete-value: 1
-      #���ݿ�����
+      #数据库类型
       db-type: mysql
-      #�Զ���SQLע����
+      #自定义SQL注入器
       #sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
-      #�Զ��������Խӿ�ʵ��
+      #自定义填充策略接口实现
       #meta-object-handler: com.baomidou.springboot.xxx
     configuration:
-      #�շ��»���ת��
+      #驼峰下划线转换
       map-underscore-to-camel-case: true
-      #ȫ�ֵؿ�����ر������ļ��е�����ӳ�����Ѿ����õ��κλ��棬Ĭ��Ϊ true��
+      #全局地开启或关闭配置文件中的所有映射器已经配置的任何缓存，默认为 true。
       cache-enabled: true
-      #�����������ֵΪ null ��ʱ���Ƿ����ӳ������ Setter��Map ����ʱΪ put������
+      #定当结果集中值为 null 的时候是否调用映射对象的 Setter（Map 对象时为 put）方法
       call-setters-on-nulls: true
-      #������Ϊ true ��ʱ�������صĶ�����ܱ��κ�������ȫ�����أ�����ÿ�����Զ��������
+      #当设置为 true 的时候，懒加载的对象可能被任何懒属性全部加载，否则，每个属性都按需加载
       aggressive-lazy-loading: true
       lazyLoadingEnabled: true
-      # ��־��ӡ
+      # 日志打印
       log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 logging:

@@ -6,6 +6,7 @@ package com.manages.background.controller;
  **/
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.manages.background.pojo.Menu;
 import com.manages.background.pojo.Permission;
 import com.manages.background.pojo.Role;
@@ -98,6 +99,15 @@ public class UserControler {
     @GetMapping("list")
     public ResultJson list() {
         return ResultJson.returnOK(userService.list());
+    }
+
+    @GetMapping("page")
+    public ResultJson page(Page<User> page,User user){
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+        if (Objects.nonNull(user.getUsername())){
+            queryWrapper.like(User::getUsername,user.getUsername());
+        }
+         return ResultJson.returnOK(userService.page(page,queryWrapper));
     }
 
 }
