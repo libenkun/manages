@@ -72,7 +72,7 @@ public class UserControler {
     }
 
     @PostMapping("add")
-    public ResultJson add(User user) {
+    public ResultJson add(@RequestBody User user) {
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(User::getUsername, user.getUsername());
         List<User> list = userService.list(queryWrapper);
@@ -84,8 +84,8 @@ public class UserControler {
         }
     }
 
-    @PutMapping("update")
-    public ResultJson update(User user) {
+    @PostMapping("update")
+    public ResultJson update(@RequestBody User user) {
         userService.updateById(user);
         return ResultJson.returnOK("修改成功！");
     }
@@ -108,6 +108,11 @@ public class UserControler {
             queryWrapper.like(User::getUsername,user.getUsername());
         }
          return ResultJson.returnOK(userService.page(page,queryWrapper));
+    }
+
+    @GetMapping("userById/{id}")
+    public ResultJson userById(@PathVariable("id") Long id){
+       return ResultJson.returnOK(userService.getById(id));
     }
 
 }
