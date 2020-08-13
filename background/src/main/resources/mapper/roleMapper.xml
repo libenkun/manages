@@ -5,6 +5,7 @@
         SELECT tr.*
         FROM tb_user_role tur LEFT JOIN tb_role tr ON tur.role_id = tr.id LEFT JOIN tb_user tu ON tur.user_id = tu.id
         WHERE tu.id =#{userId}
+
     </select>
 
 
