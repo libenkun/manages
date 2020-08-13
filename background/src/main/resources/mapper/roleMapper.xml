@@ -7,4 +7,5 @@
         WHERE tu.id =#{userId}
     </select>
 
+
 </mapper>

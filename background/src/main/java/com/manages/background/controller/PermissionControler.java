@@ -18,7 +18,7 @@ public class PermissionControler {
     PermissionServiceImpl permissionService;
 
     @PostMapping("add")
-    public ResultJson add(Permission permission){
+    public ResultJson add(@RequestBody Permission permission){
         permissionService.save(permission);
         return ResultJson.returnOK(permission);
     }

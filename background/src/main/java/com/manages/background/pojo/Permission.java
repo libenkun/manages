@@ -27,6 +27,7 @@ public class Permission implements Serializable {
     private Long pid;
     private String name;
     private Integer state;
+    private String types;
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
     @TableField(fill = FieldFill.INSERT, update = "now()")

@@ -1,6 +1,7 @@
 package com.manages.background.controller;
 
 import com.manages.background.pojo.UserRole;
+import com.manages.background.service.impl.RoleServiceImpl;
 import com.manages.background.service.impl.UserRoleServiceImpl;
 import com.manages.background.utils.ResultJson;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,9 @@ public class UserRoleControler {
 
     @Autowired
     UserRoleServiceImpl userRoleService;
+
+    @Autowired
+    RoleServiceImpl roleService;
 
     @PostMapping("add")
     public ResultJson add(UserRole userRole){
@@ -39,5 +43,10 @@ public class UserRoleControler {
     public ResultJson list(){
         List<UserRole> list = userRoleService.list();
         return ResultJson.returnOK(list);
+    }
+
+    @GetMapping("userRole/{userId}")
+    public ResultJson userRole(@PathVariable("userId") Long userId){
+            return ResultJson.returnOK(roleService.list(userId));
     }
 }
