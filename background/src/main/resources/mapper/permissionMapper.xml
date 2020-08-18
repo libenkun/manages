@@ -12,10 +12,23 @@
 
     <select id="PermissionByRoleId" resultType="com.manages.background.pojo.Permission">
         SELECT tp.*
-        FROM tb_role_permission trp LEFT JOIN tb_psermission tp ON trp.permission_id = tp.id LEFT JOIN tb_role tr ON trp.role_id = tr.id
+        FROM tb_role tr LEFT JOIN tb_role_permission trp ON tr.id =trp.role_id LEFT JOIN tb_psermission tp ON trp.permission_id = tp.id
         WHERE tr.id in
         <foreach collection="ids" item="item" index="index" open="(" close=")" separator=",">
             #{item}
         </foreach>
+    </select>
+    <select id="PermissionByIdList" resultType="com.manages.background.pojo.Permission">
+        SELECT tp.*
+        FROM tb_role_permission trp LEFT JOIN tb_psermission tp ON trp.permission_id = tp.id
+        WHERE trp.role_id in
+        <foreach collection="ids" item="item" index="index" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+    <select id="list" resultType="com.manages.background.pojo.Permission">
+        SELECT tp.*
+        FROM tb_role tr LEFT JOIN tb_role_permission trp ON tr.id =trp.role_id LEFT JOIN tb_psermission tp ON trp.permission_id = tp.id
+        WHERE tr.id =#{id}
     </select>
 </mapper>

@@ -15,4 +15,5 @@ public interface PermissionService extends IService<Permission> {
     List<Permission> list(Set<Long> ids);
 
     List<Permission> PermissionByRoleId(Set<Long> ids);
+    List<Permission> lists(Long id);
 }

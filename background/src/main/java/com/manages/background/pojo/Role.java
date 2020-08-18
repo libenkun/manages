@@ -9,6 +9,7 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author lbk
@@ -31,4 +32,8 @@ public class Role implements Serializable {
     private LocalDateTime createTime;
     @TableField(fill = FieldFill.INSERT, update = "now()")
     private LocalDateTime updateTime;
+
+
+    @TableField(exist = false)
+    List<Permission> permission;
 }
