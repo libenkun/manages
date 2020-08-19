@@ -101,17 +101,17 @@ public class UserControler {
     }
 
     @GetMapping("page")
-    public ResultJson page(Page<User> page,User user){
+    public ResultJson page(Page<User> page, User user) {
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
-        if (Objects.nonNull(user.getUsername())){
-            queryWrapper.like(User::getUsername,user.getUsername());
+        if (Objects.nonNull(user.getUsername())) {
+            queryWrapper.like(User::getUsername, user.getUsername());
         }
-         return ResultJson.returnOK(userService.page(page,queryWrapper));
+        return ResultJson.returnOK(userService.page(page, queryWrapper));
     }
 
     @GetMapping("userById/{id}")
-    public ResultJson userById(@PathVariable("id") Long id){
-       return ResultJson.returnOK(userService.getById(id));
+    public ResultJson userById(@PathVariable("id") Long id) {
+        return ResultJson.returnOK(userService.getById(id));
     }
 
 }
