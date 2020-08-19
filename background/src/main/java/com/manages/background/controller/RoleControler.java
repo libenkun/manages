@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 /**
  * @author lbk
@@ -50,23 +48,6 @@ public class RoleControler {
     @GetMapping("list")
     public ResultJson list() {
         List<Role> list = roleService.list();
-//        Set<Long> set = list.stream().map(Role::getId).collect(Collectors.toSet());
-//
-//        List<Permission> permissions = permissionMapper.PermissionByRoleId(set);
-//        permissions.stream().forEach(item -> {
-//            LambdaQueryWrapper<Permission> queryWrapper = new LambdaQueryWrapper<>();
-//            queryWrapper.eq(Permission::getPid, item.getId());
-//            List<Permission> che = permissionService.list(queryWrapper);
-//            che.stream().forEach(a -> {
-//                if (item.getId() == a.getPid()) {
-//                    item.setPermissionList(che);
-//                }
-//            });
-//        });
-//
-//        list.stream().forEach(i -> {
-//            i.setPermission(permissions);
-//        });
 
         list.stream().forEach(item->{
             List<Permission> list1 = permissionService.lists(item.getId());

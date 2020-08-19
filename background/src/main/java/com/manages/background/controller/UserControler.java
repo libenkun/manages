@@ -17,7 +17,6 @@ import com.manages.background.service.impl.RoleServiceImpl;
 import com.manages.background.service.impl.UserServiceImpl;
 import com.manages.background.utils.ResultJson;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

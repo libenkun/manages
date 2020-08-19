@@ -20,11 +20,7 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
     @Autowired
     PermissionMapper permissionMapper;
 
-    @Override
-    public List<Permission> list(Set<Long> ids) {
 
-        return null;
-    }
 
     @Override
     public List<Permission> PermissionByRoleId(Set<Long> ids) {

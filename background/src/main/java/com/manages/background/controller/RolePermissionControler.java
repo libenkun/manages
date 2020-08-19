@@ -1,5 +1,4 @@
 package com.manages.background.controller;
-
 import com.manages.background.pojo.RolePermission;
 import com.manages.background.service.impl.RolePermissionServiceImpl;
 import com.manages.background.utils.ResultJson;
