@@ -7,5 +7,10 @@
         WHERE tu.id =#{userId}
     </select>
 
+    <select id="roleByUserId" resultType="com.manages.background.pojo.Role">
+        SELECT tr.*
+        FROM tb_user_role tur LEFT JOIN tb_user tu ON tur.user_id = tu.id LEFT JOIN tb_role tr ON tur.role_id = tr.id
+        WHERE tu.id =#{userId}
+    </select>
 
 </mapper>

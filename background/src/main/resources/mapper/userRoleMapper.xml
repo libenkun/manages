@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.manages.background.dao.MenuMapper">
+    <select id="MenuListByPermission" resultType="com.manages.background.pojo.Menu">
+        SELECT tm.*
+        FROM tb_menu_permission tmp LEFT JOIN tb_psermission tp ON tmp.permission_id = tp.id LEFT JOIN tb_menu tm ON tmp.menu_id = tm.id
+        WHERE tp.id in
+        <foreach collection="ids" item="item" index="index" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </select>
+</mapper>

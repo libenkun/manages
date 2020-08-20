@@ -1,5 +1,7 @@
 package com.manages.background.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.manages.background.pojo.User;
 import com.manages.background.pojo.UserRole;
 import com.manages.background.service.impl.RoleServiceImpl;
 import com.manages.background.service.impl.UserRoleServiceImpl;
@@ -8,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author lbk
@@ -36,6 +39,7 @@ public class UserRoleControler {
 
     @PostMapping("update")
     public ResultJson update(UserRole userRole){
+
         return ResultJson.returnOK(userRoleService.updateById(userRole));
     }
 
@@ -49,4 +53,25 @@ public class UserRoleControler {
     public ResultJson userRole(@PathVariable("userId") Long userId){
             return ResultJson.returnOK(roleService.list(userId));
     }
+
+    @PostMapping("updateByRoleId")
+    public ResultJson updateByRoleId(UserRole userRole){
+        LambdaQueryWrapper<UserRole> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(UserRole::getUserId,userRole.getUserId());
+
+        UserRole ur = userRoleService.getOne(queryWrapper);
+        if (Objects.nonNull(ur)){
+            UserRole uRole = new UserRole();
+            uRole.setRoleId(userRole.getRoleId());
+            uRole.setUserId(userRole.getUserId());
+            uRole.setId(ur.getId());
+            userRoleService.updateById(uRole);
+            return ResultJson.returnOK("修改成功");
+        }else {
+            userRoleService.save(userRole);
+            return ResultJson.returnOK("保存成功！");
+        }
+    }
+
+
 }

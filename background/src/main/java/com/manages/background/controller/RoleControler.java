@@ -69,4 +69,9 @@ public class RoleControler {
     public ResultJson getRole(@PathVariable("id") Long id) {
         return ResultJson.returnOK(roleService.getById(id));
     }
+
+    @GetMapping("roles")
+    public ResultJson roles(){
+        return ResultJson.returnOK(roleService.list());
+    }
 }

@@ -36,5 +36,7 @@ public class User implements Serializable {
 
     @TableField(exist = false)
     List<Menu> menus;
+    @TableField(exist = false)
+    List<Role> role;
 
 }

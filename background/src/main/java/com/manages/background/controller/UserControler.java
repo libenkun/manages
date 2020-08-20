@@ -6,6 +6,7 @@ package com.manages.background.controller;
  **/
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.manages.background.pojo.Menu;
 import com.manages.background.pojo.Permission;
@@ -106,7 +107,11 @@ public class UserControler {
         if (Objects.nonNull(user.getUsername())) {
             queryWrapper.like(User::getUsername, user.getUsername());
         }
-        return ResultJson.returnOK(userService.page(page, queryWrapper));
+        IPage<User> iPage = userService.page(page, queryWrapper);
+        iPage.getRecords().stream().forEach(i->{
+            i.setRole(roleService.roleByUserId(i.getId()));
+        });
+        return ResultJson.returnOK(iPage);
     }
 
     @GetMapping("userById/{id}")

@@ -32,5 +32,15 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
             }
     }
 
+    @Override
+    public List<Role> roleByUserId(Long userId) {
+        List<Role> roles = roleMapper.roleByUserId(userId);
+        if (!roles.isEmpty()){
+            return roles;
+        }else {
+            return new ArrayList<>();
+        }
+    }
+
 }
 
