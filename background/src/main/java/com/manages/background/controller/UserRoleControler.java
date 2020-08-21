@@ -55,7 +55,7 @@ public class UserRoleControler {
     }
 
     @PostMapping("updateByRoleId")
-    public ResultJson updateByRoleId(UserRole userRole){
+    public ResultJson updateByRoleId(@RequestBody UserRole userRole){
         LambdaQueryWrapper<UserRole> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(UserRole::getUserId,userRole.getUserId());
 
