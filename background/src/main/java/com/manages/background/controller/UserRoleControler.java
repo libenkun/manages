@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * @author lbk
@@ -58,7 +59,6 @@ public class UserRoleControler {
     public ResultJson updateByRoleId(@RequestBody UserRole userRole){
         LambdaQueryWrapper<UserRole> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(UserRole::getUserId,userRole.getUserId());
-
         UserRole ur = userRoleService.getOne(queryWrapper);
         if (Objects.nonNull(ur)){
             UserRole uRole = new UserRole();

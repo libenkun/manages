@@ -108,7 +108,7 @@ public class UserControler {
             queryWrapper.like(User::getUsername, user.getUsername());
         }
         IPage<User> iPage = userService.page(page, queryWrapper);
-        iPage.getRecords().stream().forEach(i->{
+        iPage.getRecords().stream().forEach(i -> {
             i.setRole(roleService.roleByUserId(i.getId()));
         });
         return ResultJson.returnOK(iPage);
