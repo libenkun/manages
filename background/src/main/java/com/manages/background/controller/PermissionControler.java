@@ -43,6 +43,7 @@ public class PermissionControler {
 
     @GetMapping("tree")
     public ResultJson tree(){
+
         LambdaQueryWrapper<Permission> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Permission::getPid,0);
         List<Permission> list = permissionService.list(queryWrapper);
