@@ -9,6 +9,7 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author lbk
@@ -24,8 +25,13 @@ public class Category implements Serializable {
     @TableId(value = "id", type = IdType.ID_WORKER)
     private Long id;
     private String name;
+    private Long pid;
+    private Integer states;
     @TableField(fill = FieldFill.INSERT)
     private LocalDateTime createTime;
     @TableField(fill = FieldFill.INSERT, update = "now()")
     private LocalDateTime updateTime;
+
+    @TableField(exist = false)
+    private List<Category> list;
 }

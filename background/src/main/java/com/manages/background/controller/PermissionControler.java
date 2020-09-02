@@ -21,36 +21,36 @@ public class PermissionControler {
     PermissionServiceImpl permissionService;
 
     @PostMapping("add")
-    public ResultJson add(@RequestBody Permission permission){
+    public ResultJson add(@RequestBody Permission permission) {
         permissionService.save(permission);
         return ResultJson.returnOK(permission);
     }
 
     @DeleteMapping("/{id}")
-    public ResultJson remover(@PathVariable Long id){
+    public ResultJson remover(@PathVariable Long id) {
         return ResultJson.returnOK(permissionService.removeById(id));
     }
 
     @PostMapping("update")
-    public ResultJson update(Permission permission){
+    public ResultJson update(Permission permission) {
         return ResultJson.returnOK(permissionService.updateById(permission));
     }
 
     @GetMapping("list")
-    public ResultJson list(){
+    public ResultJson list() {
         return ResultJson.returnOK(permissionService.list());
     }
 
     @GetMapping("tree")
-    public ResultJson tree(){
+    public ResultJson tree() {
 
         LambdaQueryWrapper<Permission> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Permission::getPid,0);
+        queryWrapper.eq(Permission::getPid, 0);
         List<Permission> list = permissionService.list(queryWrapper);
-        if (!list.isEmpty()){
-            list.stream().forEach(i->{
+        if (!list.isEmpty()) {
+            list.stream().forEach(i -> {
                 LambdaQueryWrapper<Permission> query = new LambdaQueryWrapper<>();
-                query.eq(Permission::getPid,i.getId());
+                query.eq(Permission::getPid, i.getId());
                 List<Permission> ss = permissionService.list(query);
                 i.setPermissionList(ss);
             });
