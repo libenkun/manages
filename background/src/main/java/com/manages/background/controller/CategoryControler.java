@@ -1,6 +1,5 @@
 package com.manages.background.controller;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.manages.background.pojo.Category;
 import com.manages.background.service.impl.CategoryServiceImpl;
@@ -21,7 +20,7 @@ public class CategoryControler {
 
 
     @PostMapping("add")
-    public ResultJson add(Category category){
+    public ResultJson add(@RequestBody Category category){
         categoryService.save(category);
         return ResultJson.returnOK(category);
     }
@@ -38,7 +37,8 @@ public class CategoryControler {
 
     @GetMapping("list")
     public ResultJson list(){
-        return ResultJson.returnOK(categoryService.list());
+//        return ResultJson.returnOK(categoryService.list());
+          return categoryService.parentList();
     }
 
     @GetMapping("page")

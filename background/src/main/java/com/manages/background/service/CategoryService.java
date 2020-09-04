@@ -12,4 +12,5 @@ import com.manages.background.utils.ResultJson;
 public interface CategoryService extends IService<Category> {
 
     ResultJson pages(Page<Category> page);
+    ResultJson parentList();
 }

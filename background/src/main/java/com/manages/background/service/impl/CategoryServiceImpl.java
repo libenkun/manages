@@ -23,11 +23,11 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
     @Override
     public ResultJson pages(Page<Category> page) {
         LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Category::getPid,0);
-        IPage<Category> list = (this.page(page,queryWrapper));
-        if (!list.getRecords().isEmpty()){
-            list.getRecords().stream().forEach(item->{
-                if (Objects.nonNull(item)){
+        queryWrapper.eq(Category::getPid, 0);
+        IPage<Category> list = (this.page(page, queryWrapper));
+        if (!list.getRecords().isEmpty()) {
+            list.getRecords().stream().forEach(item -> {
+                if (Objects.nonNull(item)) {
                     item.setList(this.seeCategory(item.getId()));
                 }
             });
@@ -35,28 +35,49 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         return ResultJson.returnOK(list);
     }
 
-    private List<Category> seeCategory(Long id){
+    @Override
+    public ResultJson parentList() {
+        LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Category::getPid,0);
+        List<Category> list = this.list(queryWrapper);
+        if (!list.isEmpty()){
+            list.stream().forEach(item->{
+                item.setList(this.parents(item.getId()));
+            });
+        }
+        return ResultJson.returnOK(list);
+    }
+
+    private List<Category> parents(Long id){
         LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Category::getPid,id);
         List<Category> list = this.list(queryWrapper);
-        list.stream().forEach(item->{
-            if (Objects.nonNull(item)){
+        return list;
+    }
+
+    private List<Category> seeCategory(Long id) {
+        LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Category::getPid, id);
+        List<Category> list = this.list(queryWrapper);
+        list.stream().forEach(item -> {
+            if (Objects.nonNull(item)) {
                 item.setList(this.categoryList(item.getId()));
             }
         });
         return list;
     }
 
-    private List<Category> categoryList(Long id){
+    private List<Category> categoryList(Long id) {
         LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Category::getPid,id);
+        queryWrapper.eq(Category::getPid, id);
         List<Category> list = this.list(queryWrapper);
-        list.stream().forEach(item->{
-            if (Objects.nonNull(item)){
+        list.stream().forEach(item -> {
+            if (Objects.nonNull(item)) {
                 item.setList(this.seeCategory(item.getId()));
             }
         });
 
         return list;
     }
+
 }
