@@ -11,6 +11,7 @@ import com.manages.background.utils.ResultJson;
  **/
 public interface CategoryService extends IService<Category> {
 
-    ResultJson pages(Page<Category> page);
+    ResultJson pages(Page<Category> page);//带分页
     ResultJson parentList();
+    ResultJson categoryList();//不带分页
 }

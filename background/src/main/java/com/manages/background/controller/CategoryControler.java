@@ -1,11 +1,14 @@
 package com.manages.background.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.manages.background.pojo.Category;
 import com.manages.background.service.impl.CategoryServiceImpl;
 import com.manages.background.utils.ResultJson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 /**
  * @author lbk
@@ -45,4 +48,20 @@ public class CategoryControler {
     public ResultJson page(Page<Category> page){
         return categoryService.pages(page);
     }
+
+    @GetMapping("lists")
+    public ResultJson lists(Category category){
+        LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Category::getPid,0);
+        if (Objects.nonNull(category.getName())){
+            queryWrapper.like(Category::getName,category.getName());
+        }
+        return ResultJson.returnOK(categoryService.list(queryWrapper));
+    }
+
+    @GetMapping("categoryList")
+    public ResultJson categoryList(){
+        return categoryService.categoryList();
+    }
+
 }

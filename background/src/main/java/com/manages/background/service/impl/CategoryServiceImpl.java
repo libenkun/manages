@@ -48,6 +48,21 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
         return ResultJson.returnOK(list);
     }
 
+    @Override
+    public ResultJson categoryList() {
+        LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Category::getPid, 0);
+        List<Category> list = this.list(queryWrapper);
+        if (!list.isEmpty()) {
+            list.stream().forEach(item -> {
+                if (Objects.nonNull(item)) {
+                    item.setList(this.seeCategory(item.getId()));
+                }
+            });
+        }
+        return ResultJson.returnOK(list);
+    }
+
     private List<Category> parents(Long id){
         LambdaQueryWrapper<Category> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(Category::getPid,id);
@@ -76,7 +91,6 @@ public class CategoryServiceImpl extends ServiceImpl<CategoryMapper, Category> i
                 item.setList(this.seeCategory(item.getId()));
             }
         });
-
         return list;
     }
 
