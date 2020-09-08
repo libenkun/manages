@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2020-09-04 18:00:32
+Date: 2020-09-08 17:56:19
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -47,6 +47,32 @@ INSERT INTO `tb_category` VALUES ('1301342434194190338', '云烟', '130134223820
 INSERT INTO `tb_category` VALUES ('1301342515198783490', '软', '1301342434194190338', '1', '2020-09-03 10:13:28', '2020-09-03 10:13:28');
 INSERT INTO `tb_category` VALUES ('1301821738782855169', 'aa', '0', '0', '2020-09-04 17:57:44', '2020-09-04 17:57:44');
 INSERT INTO `tb_category` VALUES ('1301821929019707394', 'dfd', '0', '0', '2020-09-04 17:58:29', '2020-09-04 17:58:29');
+INSERT INTO `tb_category` VALUES ('1302896030056529922', '测试', '1292748966458884097', '0', '2020-09-07 17:06:35', '2020-09-07 17:06:35');
+INSERT INTO `tb_category` VALUES ('1302896137812393985', '测试', '1301339553378430977', '0', '2020-09-07 17:07:01', '2020-09-07 17:07:01');
+INSERT INTO `tb_category` VALUES ('1302896433468882946', '测试', '0', '0', '2020-09-07 17:08:11', '2020-09-07 17:08:11');
+
+-- ----------------------------
+-- Table structure for tb_category_explain
+-- ----------------------------
+DROP TABLE IF EXISTS `tb_category_explain`;
+CREATE TABLE `tb_category_explain` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `category_id` bigint(20) DEFAULT NULL,
+  `types` tinyint(2) DEFAULT NULL,
+  `valued` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1303248414423142403 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of tb_category_explain
+-- ----------------------------
+INSERT INTO `tb_category_explain` VALUES ('1303247788884643842', '1292748966458884001', '1', '很好喝');
+INSERT INTO `tb_category_explain` VALUES ('1303247906576814081', '1292748966458884001', '1', '回味无穷');
+INSERT INTO `tb_category_explain` VALUES ('1303247968316968962', '1292748966458884001', '2', '评价');
+INSERT INTO `tb_category_explain` VALUES ('1303248166074208257', '1301339842030432257', '2', '黑白');
+INSERT INTO `tb_category_explain` VALUES ('1303248222726672385', '1301339842030432257', '1', '彩电');
+INSERT INTO `tb_category_explain` VALUES ('1303248301663473665', '1301342084313739265', '1', '国产机');
+INSERT INTO `tb_category_explain` VALUES ('1303248414423142402', '1301342084313739265', '2', '麒麟');
 
 -- ----------------------------
 -- Table structure for tb_menu
@@ -78,7 +104,7 @@ INSERT INTO `tb_menu` VALUES ('1292726267183460353', '订单管理', '', null, n
 INSERT INTO `tb_menu` VALUES ('1292726307331338241', '添加', '', null, null, '2020-08-10 15:35:44', '2020-08-10 15:35:44', '1', '1292726267183460353');
 INSERT INTO `tb_menu` VALUES ('1292726380085735426', '数据统计', '', null, null, '2020-08-10 15:36:01', '2020-08-10 15:36:01', '1', '0');
 INSERT INTO `tb_menu` VALUES ('1292731715781488641', '权限列表', 'right', null, null, '2020-08-10 15:57:13', '2020-08-10 15:57:13', '1', '1292725922017406978');
-INSERT INTO `tb_menu` VALUES ('1292733113608794113', '分类参数', '', null, null, '2020-08-10 16:02:47', '2020-08-10 16:02:47', '1', '1292726137977925633');
+INSERT INTO `tb_menu` VALUES ('1292733113608794113', '分类参数', 'params', null, null, '2020-08-10 16:02:47', '2020-08-10 16:02:47', '1', '1292726137977925633');
 INSERT INTO `tb_menu` VALUES ('1292733174052909058', '商品分类', 'category', null, null, '2020-08-10 16:03:01', '2020-08-10 16:03:01', '1', '1292726137977925633');
 
 -- ----------------------------
