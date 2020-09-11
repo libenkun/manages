@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50726
 File Encoding         : 65001
 
-Date: 2020-09-08 17:56:19
+Date: 2020-09-11 17:51:35
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -61,18 +61,18 @@ CREATE TABLE `tb_category_explain` (
   `types` tinyint(2) DEFAULT NULL,
   `valued` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1303248414423142403 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=1303954977639161859 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of tb_category_explain
 -- ----------------------------
-INSERT INTO `tb_category_explain` VALUES ('1303247788884643842', '1292748966458884001', '1', '很好喝');
-INSERT INTO `tb_category_explain` VALUES ('1303247906576814081', '1292748966458884001', '1', '回味无穷');
+INSERT INTO `tb_category_explain` VALUES ('1303247788884643842', '1292748966458884001', '1', '很好喝-酒');
 INSERT INTO `tb_category_explain` VALUES ('1303247968316968962', '1292748966458884001', '2', '评价');
 INSERT INTO `tb_category_explain` VALUES ('1303248166074208257', '1301339842030432257', '2', '黑白');
 INSERT INTO `tb_category_explain` VALUES ('1303248222726672385', '1301339842030432257', '1', '彩电');
 INSERT INTO `tb_category_explain` VALUES ('1303248301663473665', '1301342084313739265', '1', '国产机');
 INSERT INTO `tb_category_explain` VALUES ('1303248414423142402', '1301342084313739265', '2', '麒麟');
+INSERT INTO `tb_category_explain` VALUES ('1303954977639161858', '1301341129644011521', '2', '日货');
 
 -- ----------------------------
 -- Table structure for tb_menu
@@ -177,7 +177,6 @@ CREATE TABLE `tb_role` (
 -- Records of tb_role
 -- ----------------------------
 INSERT INTO `tb_role` VALUES ('1290198153911971842', '超级管理员', '拥有所有系统所有权限', 'www.abc.com', '2020-08-03 16:09:45', '2020-08-03 16:09:45', '1');
-INSERT INTO `tb_role` VALUES ('1293800061096493058', '管理员', '有基本权限', 'role', '2020-08-13 14:42:27', '2020-08-13 14:42:27', '1');
 
 -- ----------------------------
 -- Table structure for tb_role_permission

@@ -1,7 +1,6 @@
 package com.manages.background.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.manages.background.pojo.Category;
 import com.manages.background.pojo.CategoryExplain;
 import com.manages.background.service.CategoryExplainService;
 import com.manages.background.utils.ResultJson;
@@ -19,7 +18,7 @@ public class CategoryExplainControler {
     CategoryExplainService categoryExplainService;
 
     @PostMapping("add")
-    public ResultJson add(CategoryExplain categoryExplain){
+    public ResultJson add(@RequestBody CategoryExplain categoryExplain){
         return ResultJson.returnOK(categoryExplainService.save(categoryExplain));
     }
 
@@ -28,13 +27,15 @@ public class CategoryExplainControler {
         return ResultJson.returnOK(categoryExplainService.save(categoryExplain));
     }
 
+
     @DeleteMapping("remover/{id}")
-    public ResultJson remover(@PathVariable("id") Long id){
+    public ResultJson remover(@PathVariable Long id) {
         return ResultJson.returnOK(categoryExplainService.removeById(id));
     }
 
+
     @PostMapping("update")
-    public ResultJson update(CategoryExplain categoryExplain){
+    public ResultJson update(@RequestBody CategoryExplain categoryExplain){
         return ResultJson.returnOK(categoryExplainService.updateById(categoryExplain));
     }
 
@@ -44,6 +45,11 @@ public class CategoryExplainControler {
         queryWrapper.eq(CategoryExplain::getCategoryId,categoryExplain.getCategoryId())
                     .eq(CategoryExplain::getTypes,categoryExplain.getTypes());
         return ResultJson.returnOK(categoryExplainService.list(queryWrapper));
+    }
+
+    @GetMapping("details/{id}")
+    public ResultJson details(@PathVariable("id") Long id){
+        return ResultJson.returnOK(categoryExplainService.getById(id));
     }
 }
 
